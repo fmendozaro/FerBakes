@@ -1,0 +1,52 @@
+package com.fer_mendoza.ferbakes;
+
+import android.os.AsyncTask;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Scanner;
+
+class ApiTask extends AsyncTask<URL, Void, String> {
+
+    private OnTaskCompleted onTaskCompleted;
+    private String type;
+
+    ApiTask(OnTaskCompleted onTaskCompleted, String type) {
+        this.onTaskCompleted = onTaskCompleted;
+        this.type = type;
+    }
+
+    @Override
+    protected String doInBackground(URL... urls) {
+        HttpURLConnection urlConnection = null;
+        System.out.println("urls[0] = " + urls[0]);
+        try {
+            urlConnection = (HttpURLConnection) urls[0].openConnection();
+            InputStream in = urlConnection.getInputStream();
+
+            Scanner scanner = new Scanner(in);
+            scanner.useDelimiter("\\A");
+
+            boolean hasInput = scanner.hasNext();
+            if (hasInput) {
+                return scanner.next();
+            } else {
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            urlConnection.disconnect();
+        }
+    }
+
+    @Override
+    protected void onPostExecute(String response) {
+        if(response != null && !response.isEmpty()){
+            onTaskCompleted.onTaskCompleted(response);
+        }
+    }
+}
