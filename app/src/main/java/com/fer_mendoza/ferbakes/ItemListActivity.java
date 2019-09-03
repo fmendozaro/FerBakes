@@ -67,6 +67,7 @@ public class ItemListActivity extends AppCompatActivity implements OnTaskComplet
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+        getRecipes();
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView, JSONArray jsonArray) {
