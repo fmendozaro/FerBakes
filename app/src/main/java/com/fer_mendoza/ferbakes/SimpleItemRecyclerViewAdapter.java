@@ -63,7 +63,7 @@ public class SimpleItemRecyclerViewAdapter
         Recipe recipe = recipes.get(position);
         holder.mIdView.setText(String.valueOf(recipe.getId()));
         holder.mContentView.setText(String.valueOf(recipe.getName()));
-        holder.itemView.setTag(recipe.getId());
+        holder.itemView.setTag(recipe);
         holder.itemView.setOnClickListener(mOnClickListener);
     }
 
