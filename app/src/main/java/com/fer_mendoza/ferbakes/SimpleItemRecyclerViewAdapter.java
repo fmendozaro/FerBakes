@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.fer_mendoza.ferbakes.models.Recipe;
 import org.json.JSONArray;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class SimpleItemRecyclerViewAdapter
@@ -26,7 +28,7 @@ public class SimpleItemRecyclerViewAdapter
             Recipe item = (Recipe) view.getTag();
             if (mTwoPane) {
                 Bundle arguments = new Bundle();
-                arguments.putString(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(item.getId()));
+                arguments.putSerializable(ItemDetailFragment.ARG_ITEM_ID, (Serializable) item);
                 ItemDetailFragment fragment = new ItemDetailFragment();
                 fragment.setArguments(arguments);
                 mParentActivity.getSupportFragmentManager().beginTransaction()
@@ -35,8 +37,7 @@ public class SimpleItemRecyclerViewAdapter
             } else {
                 Context context = view.getContext();
                 Intent intent = new Intent(context, ItemDetailActivity.class);
-                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, String.valueOf(item.getId()));
-
+                intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, item);
                 context.startActivity(intent);
             }
         }

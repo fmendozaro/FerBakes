@@ -1,10 +1,8 @@
 package com.fer_mendoza.ferbakes.models;
 
-import org.json.JSONArray;
+import java.io.Serializable;
 
-import java.util.ArrayList;
-
-class Ingredient {
+class Ingredient implements Serializable {
 
     private double quantity;
     private String measure;
