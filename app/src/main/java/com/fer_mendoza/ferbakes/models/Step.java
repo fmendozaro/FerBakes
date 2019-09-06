@@ -2,7 +2,7 @@ package com.fer_mendoza.ferbakes.models;
 
 import java.io.Serializable;
 
-class Step implements Serializable {
+public class Step implements Serializable {
     private long id;
     private String shortDescription;
     private String description;

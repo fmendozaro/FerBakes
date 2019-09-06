@@ -44,16 +44,19 @@ public class Recipe implements Serializable {
 
     public static ArrayList<Recipe> createRecipes(JSONArray jsonArray){
         ArrayList<Recipe> recipes = new ArrayList<>();
+        List<Ingredient> ingredients;
+        List<Step> steps;
+
         for (int i = 0 ; i < jsonArray.length(); i++) {
             try {
                 JSONObject obj = jsonArray.getJSONObject(i);
                 JSONArray ingredientsArray = obj.getJSONArray("ingredients");
                 JSONArray stepsArray = obj.getJSONArray("steps");
-                List<Ingredient> ingredients = new ArrayList<>();
-                List<Step> steps = new ArrayList<>();
-
+                ingredients = new ArrayList<>();
+                steps = new ArrayList<>();
+                
                 for (int x = 0 ; x < ingredientsArray.length(); x++) {
-                    JSONObject ingredient = ingredientsArray.getJSONObject(i);
+                    JSONObject ingredient = ingredientsArray.getJSONObject(x);
                     ingredients.add(new Ingredient(
                             ingredient.getDouble("quantity"),
                             ingredient.getString("measure"),
@@ -61,8 +64,8 @@ public class Recipe implements Serializable {
                     ));
                 }
 
-                for (int x = 0 ; x < stepsArray.length(); x++) {
-                    JSONObject step = stepsArray.getJSONObject(i);
+                for (int y = 0 ; y < stepsArray.length(); y++) {
+                    JSONObject step = stepsArray.getJSONObject(y);
                     steps.add(new Step(
                             step.getLong("id"),
                             step.getString("shortDescription"),

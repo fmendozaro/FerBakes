@@ -2,7 +2,7 @@ package com.fer_mendoza.ferbakes.models;
 
 import java.io.Serializable;
 
-class Ingredient implements Serializable {
+public class Ingredient implements Serializable {
 
     private double quantity;
     private String measure;

@@ -3,6 +3,7 @@ package com.fer_mendoza.ferbakes;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.fer_mendoza.ferbakes.models.Ingredient;
 import com.fer_mendoza.ferbakes.models.Recipe;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
@@ -12,8 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.fer_mendoza.ferbakes.dummy.DummyContent;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -65,7 +64,11 @@ public class ItemDetailFragment extends Fragment {
 
         // Show the dummy content as text in a TextView.
         if (recipe != null) {
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(recipe.getIngredients().toString());
+            String ingredientsTxt = "Ingredients: \n\n";
+            for (Ingredient ingredient: recipe.getIngredients()) {
+                ingredientsTxt += String.format("• %s %s. of %s. \n", ingredient.getQuantity(), ingredient.getMeasure().toLowerCase(), ingredient.getIngredient());
+            }
+            ((TextView) rootView.findViewById(R.id.item_detail)).setText(ingredientsTxt);
         }
 
         return rootView;
