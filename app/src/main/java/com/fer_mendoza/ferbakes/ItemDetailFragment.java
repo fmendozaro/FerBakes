@@ -68,7 +68,8 @@ public class ItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
-        View layout = inflater.inflate(R.layout.item_detail, container, false);
+        LinearLayout layout = (LinearLayout) rootView;
+
         int count = 1;
 
         if (recipe != null) {
@@ -86,24 +87,20 @@ public class ItemDetailFragment extends Fragment {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        loadStepDetail(step);
+                        loadStepDetail(view, step);
                     }
                 });
                 count++;
-                ((TextView) rootView.findViewById(R.id.item_detail2_txt)).setText("Step "+count+": " + step.getShortDescription());
+                layout.addView(btn);
             }
-
-
         }
 
         return rootView;
     }
 
-    private void loadStepDetail(Step step) {
-        System.out.println("step.getDescription() = " + step.getDescription());
-//        open step activity
-        Intent stepDetail = new Intent();
-        stepDetail.putExtra("step", step);
-        startActivity(stepDetail);
+    private void loadStepDetail(View view, Step step) {
+        Intent stepDetails = new Intent(view.getContext(), StepDetailActivity.class);
+        stepDetails.putExtra("step", step);
+        startActivity(stepDetails);
     }
 }

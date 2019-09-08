@@ -3,6 +3,7 @@ package com.fer_mendoza.ferbakes;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.fer_mendoza.ferbakes.models.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
@@ -28,6 +29,7 @@ public class StepDetailActivity extends AppCompatActivity {
 
     private SimpleExoPlayer mExoPlayer;
     private PlayerView mPlayerView;
+    private Step step;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +38,13 @@ public class StepDetailActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mPlayerView = (PlayerView) findViewById(R.id.playerView);
+        step = (Step) getIntent().getExtras().getSerializable("step");
 
-        initializePlayer(Uri.parse("https://d17h27t6h515a5.cloudfront.net/topher/2017/April/58ffda45_9-add-mixed-nutella-to-crust-creampie/9-add-mixed-nutella-to-crust-creampie.mp4"));
+        System.out.println("step.getShortDescription() = " + step.getShortDescription());
+
+//        mPlayerView = (PlayerView) findViewById(R.id.playerView);
+//
+//        initializePlayer(Uri.parse(step.getVideoURL()));
     }
 
     /**
