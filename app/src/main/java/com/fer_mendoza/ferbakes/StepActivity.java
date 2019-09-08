@@ -1,9 +1,11 @@
 package com.fer_mendoza.ferbakes;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.fer_mendoza.ferbakes.models.Recipe;
 import com.fer_mendoza.ferbakes.models.Step;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,11 +25,13 @@ public class StepActivity extends AppCompatActivity {
     private int position = 0;
     private MediaController mediaControls;
     private VideoView videoView;
+    private Recipe recipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        step = (Step) getIntent().getExtras().getSerializable("step");
+        recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
+        step = recipe.getSteps().get(getIntent().getExtras().getInt("step"));
         setContentView(R.layout.activity_step);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(step.getShortDescription());
@@ -56,6 +60,28 @@ public class StepActivity extends AppCompatActivity {
         }else{
             videoView.setVisibility(View.INVISIBLE);
         }
+
+
+        btn_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadStepDetail(step);
+            }
+        });
+
+        btn_prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loadStepDetail(step);
+            }
+        });
+
+    }
+
+    private void loadStepDetail(Step step) {
+        Intent stepDetails = new Intent(this, StepActivity.class);
+        stepDetails.putExtra("step", step);
+        startActivity(stepDetails);
     }
 
     private void renderVideo() {

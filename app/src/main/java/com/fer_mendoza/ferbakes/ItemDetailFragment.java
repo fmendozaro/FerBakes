@@ -87,7 +87,7 @@ public class ItemDetailFragment extends Fragment {
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        loadStepDetail(step);
+                        loadStepDetail(step.getId());
                     }
                 });
                 count++;
@@ -98,9 +98,10 @@ public class ItemDetailFragment extends Fragment {
         return rootView;
     }
 
-    private void loadStepDetail(Step step) {
+    private void loadStepDetail(long stepId) {
         Intent stepDetails = new Intent(getActivity(), StepActivity.class);
-        stepDetails.putExtra("step", step);
+        stepDetails.putExtra("recipe", recipe);
+        stepDetails.putExtra("step", stepId);
         startActivity(stepDetails);
     }
 }
