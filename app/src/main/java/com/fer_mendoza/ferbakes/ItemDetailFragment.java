@@ -1,6 +1,7 @@
 package com.fer_mendoza.ferbakes;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.fer_mendoza.ferbakes.models.Ingredient;
@@ -76,7 +77,7 @@ public class ItemDetailFragment extends Fragment {
                 ingredientsTxt += String.format("• %s %s. of %s. \n", ingredient.getQuantity(), ingredient.getMeasure().toLowerCase(), ingredient.getIngredient());
             }
 
-            ((TextView) rootView.findViewById(R.id.item_detail)).setText(ingredientsTxt);
+            ((TextView) rootView.findViewById(R.id.item_detail_txt)).setText(ingredientsTxt);
 
 
             for (final Step step: recipe.getSteps()){
@@ -89,8 +90,9 @@ public class ItemDetailFragment extends Fragment {
                     }
                 });
                 count++;
-                ((TextView) rootView.findViewById(R.id.item_detail2)).setText("Step "+count+": " + step.getShortDescription());
+                ((TextView) rootView.findViewById(R.id.item_detail2_txt)).setText("Step "+count+": " + step.getShortDescription());
             }
+
 
         }
 
@@ -100,5 +102,8 @@ public class ItemDetailFragment extends Fragment {
     private void loadStepDetail(Step step) {
         System.out.println("step.getDescription() = " + step.getDescription());
 //        open step activity
+        Intent stepDetail = new Intent();
+        stepDetail.putExtra("step", step);
+        startActivity(stepDetail);
     }
 }
