@@ -71,7 +71,8 @@ public class Recipe implements Serializable {
                             step.getString("shortDescription"),
                             step.getString("description"),
                             step.getString("videoURL"),
-                            step.getString("thumbnailURL")
+                            step.getString("thumbnailURL"),
+                            (y-1) == steps.size()
                     ));
                 }
 

@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -33,8 +34,22 @@ public class StepActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         TextView description = findViewById(R.id.step_instruction);
+        Button btn_next = findViewById(R.id.nav_btn_next);
+        Button btn_prev = findViewById(R.id.nav_btn_prev);
         videoView = findViewById(R.id.videoView);
         description.setText(step.getDescription());
+
+        if(step.getId() == 0){
+            btn_prev.setVisibility(View.INVISIBLE);
+        }else{
+            btn_prev.setVisibility(View.VISIBLE);
+        }
+
+        if(step.isLast()){
+            btn_next.setVisibility(View.INVISIBLE);
+        }else{
+            btn_next.setVisibility(View.VISIBLE);
+        }
 
         if(!step.getVideoURL().isEmpty()){
             renderVideo();

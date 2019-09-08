@@ -8,13 +8,15 @@ public class Step implements Serializable {
     private String description;
     private String videoURL;
     private String thumbnailURL;
+    private boolean last;
 
-    public Step(long id, String shortDescription, String description, String videoURL, String thumbnailURL) {
+    public Step(long id, String shortDescription, String description, String videoURL, String thumbnailURL, boolean isLast) {
         this.id = id;
         this.shortDescription = shortDescription;
         this.description = description;
         this.videoURL = videoURL;
         this.thumbnailURL = thumbnailURL;
+        this.last = isLast;
     }
 
     public long getId() {
@@ -55,5 +57,13 @@ public class Step implements Serializable {
 
     public void setThumbnailURL(String thumbnailURL) {
         this.thumbnailURL = thumbnailURL;
+    }
+
+    public boolean isLast() {
+        return last;
+    }
+
+    public void setLast(boolean last) {
+        this.last = last;
     }
 }
