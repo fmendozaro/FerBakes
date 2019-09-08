@@ -99,7 +99,7 @@ public class ItemDetailFragment extends Fragment {
     }
 
     private void loadStepDetail(Step step) {
-        Intent stepDetails = new Intent(getActivity(), StepDetailActivity.class);
+        Intent stepDetails = new Intent(getActivity(), StepActivity.class);
         stepDetails.putExtra("step", step);
         startActivity(stepDetails);
     }
