@@ -50,26 +50,19 @@ public class StepActivity extends AppCompatActivity {
         }
 
         try {
-            //set the media controller in the VideoView
             videoView.setMediaController(mediaControls);
-
-            //set the uri of the video to be played
             videoView.setVideoURI(Uri.parse(step.getVideoURL()));
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         videoView.requestFocus();
         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
             public void onPrepared(MediaPlayer mediaPlayer) {
-                //if we have a position on savedInstanceState, the video playback should start from here
                 videoView.seekTo(position);
                 if (position == 0) {
                     videoView.start();
                 } else {
-                    //if we come from a resumed activity, video playback will be paused
                     videoView.pause();
                 }
             }
