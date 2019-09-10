@@ -8,10 +8,6 @@ import com.fer_mendoza.ferbakes.models.Ingredient;
 import com.fer_mendoza.ferbakes.models.Recipe;
 import com.fer_mendoza.ferbakes.models.Step;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipGroup;
-
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -70,8 +66,6 @@ public class ItemDetailFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.item_detail, container, false);
         LinearLayout layout = (LinearLayout) rootView;
 
-        int count = 1;
-
         if (recipe != null) {
             String ingredientsTxt = "Ingredients: \n\n";
             for (Ingredient ingredient: recipe.getIngredients()) {
@@ -83,14 +77,13 @@ public class ItemDetailFragment extends Fragment {
 
             for (final Step step: recipe.getSteps()){
                 Button btn = new Button(rootView.getContext());
-                btn.setText("Step "+count+": " + step.getShortDescription());
+                btn.setText("Step " + (step.getId()+1) + ": " + step.getShortDescription());
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         loadStepDetail(step.getId());
                     }
                 });
-                count++;
                 layout.addView(btn);
             }
         }
@@ -101,7 +94,7 @@ public class ItemDetailFragment extends Fragment {
     private void loadStepDetail(long stepId) {
         Intent stepDetails = new Intent(getActivity(), StepActivity.class);
         stepDetails.putExtra("recipe", recipe);
-        stepDetails.putExtra("step", stepId);
+        stepDetails.putExtra("stepId", stepId);
         startActivity(stepDetails);
     }
 }

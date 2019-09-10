@@ -31,15 +31,21 @@ public class StepActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
-        step = recipe.getSteps().get(getIntent().getExtras().getInt("step"));
+        System.out.println("getIntent().getExtras().getInt(\"stepId\") = " + getIntent().getExtras().getLong("stepId"));
+        step = recipe.getSteps().get((int) getIntent().getExtras().getLong("stepId"));
         setContentView(R.layout.activity_step);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(step.getShortDescription());
-        setSupportActionBar(toolbar);
+        loadStepDetail(step);
+    }
 
+    private void loadStepDetail(final Step step) {
+        Toolbar toolbar = findViewById(R.id.toolbar);
         TextView description = findViewById(R.id.step_instruction);
         Button btn_next = findViewById(R.id.nav_btn_next);
         Button btn_prev = findViewById(R.id.nav_btn_prev);
+        System.out.println("step.isLast() = " + step.isLast());
+
+        toolbar.setTitle(step.getShortDescription());
+        setSupportActionBar(toolbar);
         videoView = findViewById(R.id.videoView);
         description.setText(step.getDescription());
 
@@ -61,27 +67,19 @@ public class StepActivity extends AppCompatActivity {
             videoView.setVisibility(View.INVISIBLE);
         }
 
-
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadStepDetail(step);
+                loadStepDetail(recipe.getSteps().get((int) step.getId() + 1));
             }
         });
 
         btn_prev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loadStepDetail(step);
+                loadStepDetail(recipe.getSteps().get((int) step.getId() - 1));
             }
         });
-
-    }
-
-    private void loadStepDetail(Step step) {
-        Intent stepDetails = new Intent(this, StepActivity.class);
-        stepDetails.putExtra("step", step);
-        startActivity(stepDetails);
     }
 
     private void renderVideo() {
