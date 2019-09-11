@@ -2,12 +2,16 @@ package com.fer_mendoza.ferbakes;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.fer_mendoza.ferbakes.models.Ingredient;
 import com.fer_mendoza.ferbakes.models.Recipe;
 import com.fer_mendoza.ferbakes.models.Step;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -77,7 +81,7 @@ public class ItemDetailFragment extends Fragment {
 
             for (final Step step: recipe.getSteps()){
                 Button btn = new Button(rootView.getContext());
-                btn.setText("Step " + (step.getId()+1) + ": " + step.getShortDescription());
+                btn.setText("Step " + step.getId() + ": " + step.getShortDescription());
                 btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

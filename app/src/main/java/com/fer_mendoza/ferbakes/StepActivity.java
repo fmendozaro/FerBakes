@@ -1,6 +1,8 @@
 package com.fer_mendoza.ferbakes;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
@@ -26,12 +29,12 @@ public class StepActivity extends AppCompatActivity {
     private MediaController mediaControls;
     private VideoView videoView;
     private Recipe recipe;
+    private ImageView placeholder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
-        System.out.println("getIntent().getExtras().getInt(\"stepId\") = " + getIntent().getExtras().getLong("stepId"));
         step = recipe.getSteps().get((int) getIntent().getExtras().getLong("stepId"));
         setContentView(R.layout.activity_step);
         loadStepDetail(step);
@@ -42,11 +45,11 @@ public class StepActivity extends AppCompatActivity {
         TextView description = findViewById(R.id.step_instruction);
         Button btn_next = findViewById(R.id.nav_btn_next);
         Button btn_prev = findViewById(R.id.nav_btn_prev);
-        System.out.println("step.isLast() = " + step.isLast());
+        videoView = findViewById(R.id.videoView);
+        placeholder = findViewById(R.id.vidPlaceholder);
 
         toolbar.setTitle(step.getShortDescription());
         setSupportActionBar(toolbar);
-        videoView = findViewById(R.id.videoView);
         description.setText(step.getDescription());
 
         if(step.getId() == 0){
@@ -60,10 +63,12 @@ public class StepActivity extends AppCompatActivity {
         }else{
             btn_next.setVisibility(View.VISIBLE);
         }
-
         if(!step.getVideoURL().isEmpty()){
-            renderVideo();
+            placeholder.setVisibility(View.INVISIBLE);
+            videoView.setVisibility(View.VISIBLE);
+            renderVideo(step.getVideoURL());
         }else{
+            placeholder.setVisibility(View.VISIBLE);
             videoView.setVisibility(View.INVISIBLE);
         }
 
@@ -82,15 +87,16 @@ public class StepActivity extends AppCompatActivity {
         });
     }
 
-    private void renderVideo() {
+    private void renderVideo(String videoUrl) {
 
         if (mediaControls == null) {
             mediaControls = new MediaController(this);
         }
 
         try {
+            mediaControls.setAnchorView(videoView);
             videoView.setMediaController(mediaControls);
-            videoView.setVideoURI(Uri.parse(step.getVideoURL()));
+            videoView.setVideoURI(Uri.parse(videoUrl));
         } catch (Exception e) {
             e.printStackTrace();
         }

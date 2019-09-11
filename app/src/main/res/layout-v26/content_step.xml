@@ -13,9 +13,9 @@
         android:id="@+id/nav_btn_prev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary2"
         android:text="@string/btn_prev"
         app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@color/colorPrimary2"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -28,24 +28,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/vidPlaceholder"
-        android:layout_width="wrap_content"
-        android:layout_height="300dp"
-        android:background="@drawable/vid_placeholder"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/vid_placeholder" />
-
     <TextView
         android:id="@+id/step_instruction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="300dp"
         android:gravity="top"
-        android:textSize="45sp"
+        android:layout_marginTop="200dp"
+        android:layout_marginHorizontal="30dp"
         app:layout_constraintTop_toTopOf="@id/videoView" />
 
     <VideoView
