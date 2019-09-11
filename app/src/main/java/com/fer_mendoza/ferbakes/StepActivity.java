@@ -1,20 +1,8 @@
 package com.fer_mendoza.ferbakes;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
-
-import com.fer_mendoza.ferbakes.models.Recipe;
-import com.fer_mendoza.ferbakes.models.Step;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -22,14 +10,27 @@ import android.widget.MediaController;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.fer_mendoza.ferbakes.models.Recipe;
+import com.fer_mendoza.ferbakes.models.Step;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class StepActivity extends AppCompatActivity {
 
+    private Recipe recipe;
     private Step step;
     private int position = 0;
     private MediaController mediaControls;
-    private VideoView videoView;
-    private Recipe recipe;
-    private ImageView placeholder;
+    @BindView(R.id.videoView) VideoView videoView;
+    @BindView(R.id.vid_placeholder) ImageView placeholder;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.step_instruction) TextView description;
+    @BindView(R.id.nav_btn_next) Button btn_next;
+    @BindView(R.id.nav_btn_prev) Button btn_prev;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,17 +38,11 @@ public class StepActivity extends AppCompatActivity {
         recipe = (Recipe) getIntent().getExtras().getSerializable("recipe");
         step = recipe.getSteps().get((int) getIntent().getExtras().getLong("stepId"));
         setContentView(R.layout.activity_step);
+        ButterKnife.bind(this);
         loadStepDetail(step);
     }
 
     private void loadStepDetail(final Step step) {
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        TextView description = findViewById(R.id.step_instruction);
-        Button btn_next = findViewById(R.id.nav_btn_next);
-        Button btn_prev = findViewById(R.id.nav_btn_prev);
-        videoView = findViewById(R.id.videoView);
-        placeholder = findViewById(R.id.vidPlaceholder);
-
         toolbar.setTitle(step.getShortDescription());
         setSupportActionBar(toolbar);
         description.setText(step.getDescription());
@@ -90,12 +85,12 @@ public class StepActivity extends AppCompatActivity {
     private void renderVideo(String videoUrl) {
 
         if (mediaControls == null) {
-            mediaControls = new MediaController(this);
+//            mediaControls = new MediaController(this);
         }
 
         try {
-            mediaControls.setAnchorView(videoView);
-            videoView.setMediaController(mediaControls);
+//            mediaControls.setAnchorView(videoView);
+//            videoView.setMediaController(mediaControls);
             videoView.setVideoURI(Uri.parse(videoUrl));
         } catch (Exception e) {
             e.printStackTrace();
