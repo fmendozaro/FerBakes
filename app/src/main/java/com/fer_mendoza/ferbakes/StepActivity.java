@@ -58,6 +58,7 @@ public class StepActivity extends AppCompatActivity {
         }else{
             btn_next.setVisibility(View.VISIBLE);
         }
+
         if(!step.getVideoURL().isEmpty()){
             placeholder.setVisibility(View.INVISIBLE);
             videoView.setVisibility(View.VISIBLE);
