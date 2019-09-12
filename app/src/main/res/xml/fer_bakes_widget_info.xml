@@ -3,8 +3,8 @@
     android:initialKeyguardLayout="@layout/fer_bakes_widget"
     android:initialLayout="@layout/fer_bakes_widget"
     android:minWidth="250dp"
-    android:minHeight="40dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:minHeight="80dp"
+    android:previewImage="@drawable/ic_launcher_background"
     android:resizeMode="horizontal|vertical"
     android:updatePeriodMillis="86400000"
     android:widgetCategory="home_screen"></appwidget-provider>

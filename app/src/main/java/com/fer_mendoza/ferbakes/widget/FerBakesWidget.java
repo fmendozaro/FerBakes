@@ -1,14 +1,28 @@
-package com.fer_mendoza.ferbakes;
+package com.fer_mendoza.ferbakes.widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.widget.RemoteViews;
 
+import com.fer_mendoza.ferbakes.ApiTask;
+import com.fer_mendoza.ferbakes.OnTaskCompleted;
+import com.fer_mendoza.ferbakes.R;
+import com.fer_mendoza.ferbakes.models.Recipe;
+import com.fer_mendoza.ferbakes.utils.NetworkUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Implementation of App Widget functionality.
  */
 public class FerBakesWidget extends AppWidgetProvider {
+
+    static List<Recipe> recipes;
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {

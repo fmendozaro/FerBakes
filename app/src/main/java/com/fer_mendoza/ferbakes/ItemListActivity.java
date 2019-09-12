@@ -57,7 +57,7 @@ public class ItemListActivity extends AppCompatActivity implements OnTaskComplet
     public void getRecipes(){
         HashMap<String, String> params = new HashMap<>();
         params.put("orderBy","asc");
-        ApiTask apiTask = new ApiTask(ItemListActivity.this, "movie");
+        ApiTask apiTask = new ApiTask(ItemListActivity.this);
         apiTask.execute(NetworkUtils.parseURL("d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/baking.json", params));
     }
 

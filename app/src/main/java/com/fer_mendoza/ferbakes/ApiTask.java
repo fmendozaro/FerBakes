@@ -8,14 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Scanner;
 
-class ApiTask extends AsyncTask<URL, Void, String> {
+public class ApiTask extends AsyncTask<URL, Void, String> {
 
     private OnTaskCompleted onTaskCompleted;
-    private String type;
 
-    ApiTask(OnTaskCompleted onTaskCompleted, String type) {
+    public ApiTask(OnTaskCompleted onTaskCompleted) {
         this.onTaskCompleted = onTaskCompleted;
-        this.type = type;
     }
 
     @Override
