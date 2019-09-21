@@ -1,26 +1,21 @@
 package com.fer_mendoza.ferbakes.widget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
-import com.fer_mendoza.ferbakes.ApiTask;
-import com.fer_mendoza.ferbakes.OnTaskCompleted;
 import com.fer_mendoza.ferbakes.R;
 import com.fer_mendoza.ferbakes.models.Recipe;
-import com.fer_mendoza.ferbakes.utils.NetworkUtils;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Implementation of App Widget functionality.
  */
-public class FerBakesWidget extends AppWidgetProvider {
+public class FerBakesWidgetProvider extends AppWidgetProvider {
 
     static List<Recipe> recipes;
 
@@ -28,20 +23,44 @@ public class FerBakesWidget extends AppWidgetProvider {
                                 int appWidgetId) {
 
         CharSequence widgetText = context.getString(R.string.appwidget_text);
+
+        Intent recipeIntent = new Intent(context, GetRecipesService.class);
+        recipeIntent.setAction(GetRecipesService.ACTION_GET_RECIPES);
+        PendingIntent recipePendingIntent = PendingIntent.getService(
+                context,
+                0,
+                recipeIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.fer_bakes_widget);
         views.setTextViewText(R.id.appwidget_text, widgetText);
+        views.setOnClickPendingIntent(R.id.refresh_btn, recipePendingIntent);
+
+        if(recipes != null){
+            for (Recipe r: recipes) {
+                System.out.println("r.getName() = " + r.getName());
+            }
+        }
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
-    @Override
-    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
+    public static void updateRecipeWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds, List<Recipe> latestRecipes) {
+        recipes = latestRecipes;
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId);
         }
+    }
+
+
+    @Override
+    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
+        GetRecipesService.startActionGet(context);
+        // There may be multiple widgets active, so update all of them
+//        for (int appWidgetId : appWidgetIds) {
+//            updateAppWidget(context, appWidgetManager, appWidgetId);
+//        }
     }
 
     @Override

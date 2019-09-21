@@ -38,7 +38,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.fer_mendoza.ferbakes.ItemListActivity" />
         </activity>
-        <receiver android:name=".widget.FerBakesWidget">
+        <receiver android:name=".widget.FerBakesWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
